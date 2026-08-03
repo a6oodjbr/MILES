@@ -7,10 +7,5 @@ itinerary_data: list[Itinerary] = []
 
 
 @router.get("")
-def health_check_itinerary():
-    return {"data": itinerary_data}
-
-
-@router.get("")
 def get_itineraries():
     return {"data": itinerary_data}
