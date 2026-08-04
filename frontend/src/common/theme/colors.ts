@@ -1,0 +1,33 @@
+export const colors = {
+  cream: "#FBF8F3",
+  charcoal: "#2B2A28",
+  warmGray: "#8A8178",
+  coral: "#FF7A59",
+  rose: "#E94F92",
+  peach: "#FFD9C4",
+  warmWhite: "#faf6ef",
+  brown: "#6B4226",
+  faint: "#B5AEA4",
+  fieldHoverBorder: "#C9C0B4",
+  error: "#DC2626",
+  white: "#ffffff",
+  transparent: "transparent",
+  charcoalBorder: "rgba(43,42,40,0.12)",
+  charcoalLightBorder: "rgba(43,42,40,0.06)",
+  charcoalTrack: "rgba(43,42,40,0.08)",
+  coralTint: "rgba(255,122,89,0.08)",
+  coralSoftTint: "rgba(255,122,89,0.06)",
+  coralBorder: "rgba(255,122,89,0.15)",
+  coralStrongBorder: "rgba(255,122,89,0.2)",
+  roseGlow: "rgba(233,79,146,0.30)",
+  roseHoverGlow: "rgba(233,79,146,0.40)",
+  charcoalShadow: "rgba(43,42,40,0.10)",
+  charcoalCardShadow: "rgba(43,42,40,0.15)",
+  charcoalPhotoShadow: "rgba(43,42,40,0.25)",
+} as const;
+
+export const gradients = {
+  primary: `linear-gradient(135deg, ${colors.coral}, ${colors.rose})`,
+  progress: `linear-gradient(90deg, ${colors.coral}, ${colors.rose})`,
+  summary: "linear-gradient(135deg, rgba(255,122,89,0.05), rgba(233,79,146,0.05))",
+} as const;
