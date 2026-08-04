@@ -19,7 +19,10 @@
     "@griffel/react": "^1.7.7",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
+    "@mui/x-date-pickers": "^9.10.1",
     "axios": "^1.19.0",
+    "country-state-city": "^3.2.1",
+    "dayjs": "^1.11.21",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.11.0"
