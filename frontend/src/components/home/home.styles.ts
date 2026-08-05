@@ -8,7 +8,11 @@ export const useHomeStyles = makeStyles({
     display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between",
     gap: "48px", padding: `${layout.navHeight + 60}px 56px 100px`, maxWidth: "1280px", margin: "0 auto",
   },
-  intro: { flexGrow: 1, flexShrink: 1, flexBasis: "420px", display: "flex", flexDirection: "column", gap: "26px", maxWidth: "520px", marginTop: "-80px" },
+  intro: {
+    flexGrow: 1, flexShrink: 1, flexBasis: "420px", display: "flex", flexDirection: "column",
+    gap: "26px", maxWidth: "520px", marginTop: "-80px",
+    "@media (max-width: 1100px)": { marginTop: "20px" },
+  },
   title: { fontFamily: typography.serif, fontSize: "clamp(38px, 4.6vw, 58px)", fontWeight: 400, color: colors.charcoal, lineHeight: 1.15, letterSpacing: "-0.5px", margin: 0 },
   gradientText: { fontStyle: "italic", display: "inline-block", backgroundImage: gradients.primary, WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: colors.transparent, color: colors.transparent },
   description: { fontSize: "17px", color: colors.warmGray, lineHeight: 1.75, margin: 0, maxWidth: "420px" },
