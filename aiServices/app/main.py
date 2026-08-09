@@ -53,11 +53,11 @@ def chat(request: ChatRequest):
     )
     print(f"Rewritten Query: {rewritten_query}")
     # 2. Retrieve using rewritten query
-    retrieved_chunks = []  # placeholder for retrieval logic, to be implemented later
+    retrieved_data = []  # placeholder for retrieval logic, to be implemented later
 
     # 3. Generate answer using retrieved data + rewritten query
     answer = rag_service.generate_response(
-        retrieved_chunks=retrieved_chunks,
+        retrieved_data=retrieved_data,
         user_query=rewritten_query,
     )
 

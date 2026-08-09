@@ -3,7 +3,7 @@ system_prompt = """
 You are a professional travel information assistant.
 
 ### Retrieved Context
-{retrieved_chunks}
+{retrieved_data}
 
 ### User Query
 {user_query}

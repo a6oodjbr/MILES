@@ -56,20 +56,20 @@ class RAGService:
 
     def generate_response(
         self,
-        retrieved_chunks: str,
+        retrieved_data: str,
         user_query: str,
     ) -> str:
-        """generate_response generates a response based on the retrieved chunks and the user query.
+        """generate_response generates a response based on the retrieved data and the user query.
 
         Args:
-            retrieved_chunks (str): The retrieved chunks of information.
+            retrieved_data (str): The retrieved data.
             user_query (str): The user's query.
 
         Returns:
             str: The generated response.
         """
         prompt = self._system_prompt.format(
-            retrieved_chunks=retrieved_chunks,
+            retrieved_data=retrieved_data,
             user_query=user_query,
         )
         return self._ask(prompt)
