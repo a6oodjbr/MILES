@@ -3,6 +3,7 @@ import Home from "./home";
 import Itinerary from "../features/Itinerary/pages/itinerary";
 import ChatPage from "../features/chatbot/pages/chatPage";
 import PlanTrip from "./plan-trip";
+import Recommendations from "./recommendations.tsx";
 import { routesPaths } from "./routesPaths";
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: routesPaths.planTrip,
     element: <PlanTrip />,
+  },
+  {
+    path: routesPaths.recommendation,
+    element: <Recommendations />,
   },
   {
     path: routesPaths.itinerary,

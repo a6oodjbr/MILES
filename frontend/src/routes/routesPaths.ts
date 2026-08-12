@@ -3,4 +3,5 @@ export const routesPaths = {
   planTrip: "/plan-trip",
   itinerary: "/itinerary",
   chatbot: "/chatbot",
+  recommendation: "/discover",
 };
