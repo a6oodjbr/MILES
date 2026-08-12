@@ -3,7 +3,9 @@ import Home from "./home";
 import Itinerary from "../features/Itinerary/pages/itinerary";
 import ChatPage from "../features/chatbot/pages/chatPage";
 import PlanTrip from "./plan-trip";
-import Recommendations from "./recommendations.tsx";
+import SignUpPage from "../features/auth/pages/signUp";
+import SignInPage from "../features/auth/pages/signIn";
+import Recommendations from "../features/recommendations/pages/recommendations";
 import { routesPaths } from "./routesPaths";
 
 const router = createBrowserRouter([
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
   {
     path: routesPaths.chatbot,
     element: <ChatPage />,
+  },
+  {
+    path: routesPaths.signUp,
+    element: <SignUpPage />,
+  },
+  {
+    path: routesPaths.signIn,
+    element: <SignInPage />,
   },
 ]);
 
