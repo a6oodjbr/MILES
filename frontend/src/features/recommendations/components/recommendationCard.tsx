@@ -1,6 +1,6 @@
 import { mergeClasses } from "@griffel/react";
 import { useRecommendationsStyles } from "../styles/recommendations.styles";
-import type { RecommendationPlace } from "../types";
+import type { RecommendationPlace } from "../types/types";
 
 type RecommendationCardProps = {
   place: RecommendationPlace;

@@ -2,16 +2,16 @@ import { useMemo, useState } from "react";
 
 import TopNav from "../../../common/TopNav/topNav";
 import RecommendationCard from "../components/RecommendationCard";
-import RecommendationsEmptyState from "../components/RecommendationsEmptyState";
-import RecommendationsFilters from "../components/RecommendationsFilters";
-import RecommendationsHeader from "../components/RecommendationsHeader";
+import RecommendationsEmptyState from "../components/recommendationsEmptyState";
+import RecommendationsFilters from "../components/recommendationsFilters";
+import RecommendationsHeader from "../components/recommendationsHeader";
 import { useRecommendationsStyles } from "../styles/recommendations.styles";
 import type {
   BudgetFilterLabel,
   PriceLevel,
   RecommendationCategoryFilter,
   RecommendationPlace,
-} from "../types";
+} from "../types/types";
 
 const categories = [
   "All",

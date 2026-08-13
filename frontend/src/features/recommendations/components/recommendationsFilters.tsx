@@ -4,7 +4,7 @@ import type {
   BudgetFilterLabel,
   RecommendationCategory,
   RecommendationCategoryFilter,
-} from "../types";
+} from "../types/types";
 
 type RecommendationsFiltersProps = {
   categories: readonly ["All", ...RecommendationCategory[]];
