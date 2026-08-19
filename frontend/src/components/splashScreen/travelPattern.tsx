@@ -20,13 +20,33 @@ const palette = [
   colors.peach,
   colors.brown,
 ];
+const patternItemIds = [
+  "pattern-item-01",
+  "pattern-item-02",
+  "pattern-item-03",
+  "pattern-item-04",
+  "pattern-item-05",
+  "pattern-item-06",
+  "pattern-item-07",
+  "pattern-item-08",
+  "pattern-item-09",
+  "pattern-item-10",
+  "pattern-item-11",
+  "pattern-item-12",
+  "pattern-item-13",
+  "pattern-item-14",
+  "pattern-item-15",
+  "pattern-item-16",
+  "pattern-item-17",
+  "pattern-item-18",
+] as const;
 
 const TravelPattern = () => {
   const styles = useSplashScreenStyles();
 
   return (
     <div aria-hidden="true" className={styles.pattern}>
-      {Array.from({ length: 18 }, (_, index) => {
+      {patternItemIds.map((id, index) => {
         const left = `${4 + ((index * 23) % 92)}%`;
         const top = `${10 + ((index * 31) % 78)}%`;
         const rotation = ((index * 29) % 60) - 30;
@@ -40,11 +60,7 @@ const TravelPattern = () => {
         } as CSSProperties;
 
         return (
-          <span
-            key={`${left}-${top}-${rotation}`}
-            className={styles.patternItem}
-            style={itemStyle}
-          >
+          <span key={id} className={styles.patternItem} style={itemStyle}>
             {symbols[index % symbols.length]}
           </span>
         );
