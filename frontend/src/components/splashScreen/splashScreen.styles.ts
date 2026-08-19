@@ -1,15 +1,11 @@
 import { makeStyles } from "@griffel/react";
+import { fadeUp, pulse } from "../../common/theme/animations";
 import { colors, warm } from "../../common/theme/colors";
 import {
   layout,
   typography,
   typographyPresets,
 } from "../../common/theme/typography";
-
-const fadeUp = {
-  from: { opacity: 0, transform: "translateY(14px)" },
-  to: { opacity: 1, transform: "translateY(0)" },
-};
 
 export const useSplashScreenStyles = makeStyles({
   root: {
@@ -68,11 +64,8 @@ export const useSplashScreenStyles = makeStyles({
     color: colors.rose,
     textShadow: `0 2px 12px ${colors.roseGlow}`,
     margin: `0 0 ${layout.spacing[3]}`,
-    animationName: fadeUp,
-    animationDuration: ".8s",
-    animationTimingFunction: "ease-out",
+    ...fadeUp,
     animationDelay: ".5s",
-    animationFillMode: "both",
   },
   slogan: {
     ...typographyPresets.bodyLarge,
@@ -81,25 +74,23 @@ export const useSplashScreenStyles = makeStyles({
     letterSpacing: typography.letterSpacing.wide,
     color: warm.textSecondary,
     margin: 0,
-    animationName: fadeUp,
-    animationDuration: ".8s",
-    animationTimingFunction: "ease-out",
+    ...fadeUp,
     animationDelay: ".75s",
-    animationFillMode: "both",
   },
   loadingBar: {
     marginTop: layout.spacing[10],
-    animationName: fadeUp,
-    animationDuration: ".8s",
-    animationTimingFunction: "ease-out",
+    ...fadeUp,
     animationDelay: "1.05s",
-    animationFillMode: "both",
   },
   pattern: {
     pointerEvents: "none",
     position: "absolute",
     inset: 0,
     overflow: "hidden",
+  },
+  patternItem: {
+    position: "absolute",
+    lineHeight: 1,
   },
   loadingBarRoot: {
     position: "relative",
@@ -114,10 +105,7 @@ export const useSplashScreenStyles = makeStyles({
     borderRadius: "50%",
     backgroundColor: colors.coral,
     boxShadow: `0 0 0 3px ${colors.coralTint}`,
-    animationName: { "50%": { transform: "scale(1.18)" } },
-    animationDuration: "1.8s",
-    animationTimingFunction: "ease-in-out",
-    animationIterationCount: "infinite",
+    ...pulse,
   },
   route: {
     flexGrow: 1,
@@ -131,10 +119,7 @@ export const useSplashScreenStyles = makeStyles({
     borderRadius: "50%",
     backgroundColor: colors.rose,
     boxShadow: `0 0 0 3px ${colors.roseTint}`,
-    animationName: { "50%": { transform: "scale(1.18)" } },
-    animationDuration: "1.8s",
-    animationTimingFunction: "ease-in-out",
-    animationIterationCount: "infinite",
+    ...pulse,
   },
   plane: {
     position: "absolute",

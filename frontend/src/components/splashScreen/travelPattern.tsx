@@ -27,20 +27,24 @@ const TravelPattern = () => {
   return (
     <div aria-hidden="true" className={styles.pattern}>
       {Array.from({ length: 18 }, (_, index) => {
+        const left = `${4 + ((index * 23) % 92)}%`;
+        const top = `${10 + ((index * 31) % 78)}%`;
         const rotation = ((index * 29) % 60) - 30;
         const itemStyle = {
-          position: "absolute",
-          left: `${4 + ((index * 23) % 92)}%`,
-          top: `${10 + ((index * 31) % 78)}%`,
+          left,
+          top,
           color: palette[index % palette.length],
           opacity: 0.1 + (index % 4) * 0.015,
           fontSize: `${30 + (index % 4) * 8}px`,
-          lineHeight: 1,
           transform: `rotate(${rotation}deg)`,
         } as CSSProperties;
 
         return (
-          <span key={index} style={itemStyle}>
+          <span
+            key={`${left}-${top}-${rotation}`}
+            className={styles.patternItem}
+            style={itemStyle}
+          >
             {symbols[index % symbols.length]}
           </span>
         );
