@@ -1,6 +1,6 @@
 import { makeStyles } from "@griffel/react";
 import { fadeUp, pulse } from "../../common/theme/animations";
-import { colors, warm } from "../../common/theme/colors";
+import { semanticColors, warm } from "../../common/theme/colors";
 import {
   layout,
   typography,
@@ -16,13 +16,13 @@ export const useSplashScreenStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    backgroundImage: `radial-gradient(circle at 12% 8%, ${colors.peach} 0%, transparent 34%), radial-gradient(circle at 88% 92%, ${colors.roseTint} 0%, transparent 32%), linear-gradient(160deg, ${warm.bgPage} 0%, ${colors.cream} 55%, ${warm.bgTint} 100%)`,
+    backgroundImage: `radial-gradient(circle at 12% 8%, ${semanticColors.bgAccent} 0%, transparent 34%), radial-gradient(circle at 88% 92%, ${semanticColors.bgInteractiveSubtle} 0%, transparent 32%), linear-gradient(160deg, ${semanticColors.bgPage} 0%, ${semanticColors.bgPrimary} 55%, ${warm.bgTint} 100%)`,
     color: warm.textPrimary,
   },
   overlay: {
     position: "absolute",
     inset: 0,
-    backgroundImage: `radial-gradient(circle at 50% 42%, rgba(255,255,255,.55) 0%, transparent 50%), radial-gradient(circle at 16% 26%, ${colors.coralTint} 0%, transparent 36%), radial-gradient(circle at 84% 74%, ${colors.roseTint} 0%, transparent 38%)`,
+    backgroundImage: `radial-gradient(circle at 50% 42%, color-mix(in srgb, ${semanticColors.bgPrimary} 55%, transparent) 0%, transparent 50%), radial-gradient(circle at 16% 26%, ${semanticColors.bgAccent} 0%, transparent 36%), radial-gradient(circle at 84% 74%, ${semanticColors.bgInteractiveSubtle} 0%, transparent 38%)`,
   },
   content: {
     position: "relative",
@@ -49,7 +49,7 @@ export const useSplashScreenStyles = makeStyles({
     width: "100%",
     height: "100%",
     objectFit: "contain",
-    filter: "drop-shadow(0 18px 36px rgba(128, 73, 48, .22))",
+    filter: `drop-shadow(0 18px 36px color-mix(in srgb, ${warm.textPrimary} 22%, transparent))`,
     animationName: { "50%": { transform: "translateY(-8px)" } },
     animationDuration: "6s",
     animationTimingFunction: "ease-in-out",
@@ -61,8 +61,8 @@ export const useSplashScreenStyles = makeStyles({
     fontFamily: typography.fontFamily.brand,
     fontSize: "clamp(32px, 4.5vw, 50px)",
     fontWeight: typography.fontWeight.normal,
-    color: colors.rose,
-    textShadow: `0 2px 12px ${colors.roseGlow}`,
+    color: warm.rose,
+    textShadow: `0 2px 12px color-mix(in srgb, ${warm.rose} 30%, transparent)`,
     margin: `0 0 ${layout.spacing[3]}`,
     ...fadeUp,
     animationDelay: ".5s",
@@ -103,22 +103,21 @@ export const useSplashScreenStyles = makeStyles({
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: colors.coral,
-    boxShadow: `0 0 0 3px ${colors.coralTint}`,
+    backgroundColor: warm.coral,
+    boxShadow: `0 0 0 3px ${semanticColors.bgAccent}`,
     ...pulse,
   },
   route: {
     flexGrow: 1,
     height: "2px",
-    backgroundImage:
-      "repeating-linear-gradient(90deg, rgba(47,33,27,.18) 0 6px, transparent 6px 12px)",
+    backgroundImage: `repeating-linear-gradient(90deg, color-mix(in srgb, ${warm.textPrimary} 18%, transparent) 0 6px, transparent 6px 12px)`,
   },
   endDot: {
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: colors.rose,
-    boxShadow: `0 0 0 3px ${colors.roseTint}`,
+    backgroundColor: warm.rose,
+    boxShadow: `0 0 0 3px ${semanticColors.bgInteractiveSubtle}`,
     ...pulse,
   },
   plane: {
@@ -127,8 +126,8 @@ export const useSplashScreenStyles = makeStyles({
     left: "8px",
     width: "16px",
     height: "16px",
-    color: colors.coral,
-    filter: `drop-shadow(0 1px 3px ${colors.roseGlow})`,
+    color: warm.coral,
+    filter: `drop-shadow(0 1px 3px color-mix(in srgb, ${warm.rose} 30%, transparent))`,
     animationName: {
       "0%, 15%": { transform: "translateX(0) rotate(-12deg)", opacity: 0 },
       "25%, 85%": { opacity: 1 },

@@ -1,38 +1,45 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import { ClerkProvider } from "@clerk/clerk-react";
 
+import "./common/theme/theme.css";
 import "./index.css";
 import "./i18n";
 import router from "./routes/router";
-import { clerkAppearance } from "./features/auth/styles/clerkAppearance.styles";
-import { clerkPublishableKey } from "./features/auth/utils/clerkConfig";
+import { AppThemeProvider } from "./common/theme/appThemeProvider";
+import { ThemeModeProvider } from "./common/theme/themeModeProvider";
 import SplashScreen from "./components/splashScreen/splashScreen";
+import { AppClerkProvider } from "./features/auth/appClerkProvider";
 
-const SPLASH_DURATION_MS = 2900;
+const STARTUP_SPLASH_DURATION = 1800;
 
-const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
+const AppStartup = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = window.setTimeout(
-      () => setShowSplash(false),
-      SPLASH_DURATION_MS,
+    const timeout = window.setTimeout(
+      () => setIsLoading(false),
+      STARTUP_SPLASH_DURATION,
     );
-    return () => window.clearTimeout(timer);
+
+    return () => window.clearTimeout(timeout);
   }, []);
 
-  return showSplash ? <SplashScreen /> : <RouterProvider router={router} />;
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  return <RouterProvider router={router} />;
 };
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider
-      appearance={clerkAppearance}
-      publishableKey={clerkPublishableKey}
-    >
-      <App />
-    </ClerkProvider>
+    <ThemeModeProvider>
+      <AppThemeProvider>
+        <AppClerkProvider>
+          <AppStartup />
+        </AppClerkProvider>
+      </AppThemeProvider>
+    </ThemeModeProvider>
   </StrictMode>,
 );
