@@ -178,7 +178,7 @@ const TripPlanningForm = () => {
     !!startDate &&
     !!endDate;
   const isTravelersBudgetComplete = adults >= 1 && children >= 0 && !!budget;
-  const isInterestsComplete = selectedInterests.length > 0;
+  const isInterestsComplete = selectedInterests.length >= 3;
   const completedSteps = [
     isTripDetailsComplete,
     isTravelersBudgetComplete,
@@ -268,7 +268,7 @@ const TripPlanningForm = () => {
       ? selectedInterests.filter((item) => item !== interest)
       : [...selectedInterests, interest];
     setSelectedInterests(nextInterests);
-    if (nextInterests.length > 0) clearFieldError("interests");
+    if (nextInterests.length >= 3) clearFieldError("interests");
   };
   const validateCurrentStep = (): boolean => {
     setSubmitError("");
@@ -344,9 +344,9 @@ const TripPlanningForm = () => {
     }
     if (step === 3) {
       nextErrors.interests =
-        selectedInterests.length > 0
+        selectedInterests.length >= 3
           ? ""
-          : "Please select at least one interest.";
+          : "Please select at least 3 interests.";
       isValid = !nextErrors.interests;
     }
     setFieldErrors(nextErrors);
@@ -911,11 +911,24 @@ const TripPlanningForm = () => {
             {step === 3 && (
               <div>
                 <div className={styles.interestHeader}>
-                  <Typography component="h3" className={styles.interestTitle}>
-                    What are you interested in?
-                  </Typography>
+                  <div className={styles.interestHeaderRow}>
+                    <Typography component="h3" className={styles.interestTitle}>
+                      What are you interested in?
+                    </Typography>
+                    <span
+                      className={mergeClasses(
+                        styles.interestCounter,
+                        selectedInterests.length >= 3 &&
+                          styles.interestCounterComplete,
+                      )}
+                    >
+                      {selectedInterests.length}
+                    </span>
+                  </div>
                   <Typography component="p" className={styles.interestText}>
-                    Select all that apply
+                    {selectedInterests.length >= 3
+                      ? "Select all that apply"
+                      : "Choose at least 3 to personalize your trip"}
                   </Typography>
                 </div>
                 <div className={styles.chips}>
@@ -929,17 +942,10 @@ const TripPlanningForm = () => {
                         styles.chip,
                         selectedInterests.includes(interest) &&
                           styles.chipActive,
-                        selectedInterests.includes(interest) &&
-                          styles.completedChoice,
                       )}
                     />
                   ))}
                 </div>
-                {fieldErrors.interests && (
-                  <Typography component="p" className={styles.fieldError}>
-                    {fieldErrors.interests}
-                  </Typography>
-                )}
                 {selectedInterests.includes("Other") && (
                   <div className={styles.otherField}>
                     <TextField
@@ -950,18 +956,6 @@ const TripPlanningForm = () => {
                       onChange={(event) => setOtherInterest(event.target.value)}
                       sx={getFieldSx(!!otherInterest.trim())}
                     />
-                  </div>
-                )}
-                {selectedInterests.length > 0 && (
-                  <div className={styles.selectionNotice}>
-                    <CheckIcon fontSize="small" aria-hidden="true" />
-                    <Typography
-                      component="p"
-                      className={styles.selectionNoticeText}
-                    >
-                      {selectedInterests.length} interest
-                      {selectedInterests.length === 1 ? "" : "s"} selected
-                    </Typography>
                   </div>
                 )}
                 <div className={styles.summary}>

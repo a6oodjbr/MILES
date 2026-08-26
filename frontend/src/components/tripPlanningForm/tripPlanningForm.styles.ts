@@ -321,11 +321,16 @@ export const useTripPlanningFormStyles = makeStyles({
     flexBasis: "0",
     minWidth: "0",
     margin: "0",
+    padding: `${layout.gap.sm} ${layout.gap.md}`,
+    borderRadius: layout.radius.md,
+    ...shorthands.border(layout.borderWidth.thin, "solid", "transparent"),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     color: semanticColors.textSecondary,
     cursor: "pointer",
+    transitionProperty: "border-color, background-color, color",
+    transitionDuration: layout.duration.normal,
     "& .MuiRadio-root": {
       color: semanticColors.textDisabled,
       padding: layout.gap.sm,
@@ -343,8 +348,20 @@ export const useTripPlanningFormStyles = makeStyles({
     },
   },
   budgetOptionSelected: {
+    color: semanticColors.interactive,
+    backgroundColor: semanticColors.bgInteractiveSubtle,
+    borderRadius: layout.radius.md,
+    ...shorthands.border(
+      layout.borderWidth.thin,
+      "solid",
+      semanticColors.interactive,
+    ),
     "& .MuiRadio-root.Mui-checked": {
       color: semanticColors.interactive,
+    },
+    "& .MuiFormControlLabel-label": {
+      color: semanticColors.interactive,
+      fontWeight: typography.fontWeight.bold,
     },
   },
   currency: {
@@ -352,11 +369,33 @@ export const useTripPlanningFormStyles = makeStyles({
     marginRight: layout.gap.sm,
   },
   interestHeader: { marginBottom: layout.gap.lg },
+  interestHeaderRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    columnGap: layout.gap.md,
+  },
   interestTitle: {
     fontSize: typography.fontSize.size7,
     fontWeight: typography.fontWeight.bold,
     color: semanticColors.textPrimary,
     margin: `0 0 ${layout.gap.sm}`,
+  },
+  interestCounter: {
+    flexShrink: 0,
+    fontSize: typography.fontSize.size3,
+    fontWeight: typography.fontWeight.bold,
+    color: semanticColors.textTertiary,
+    backgroundColor: semanticColors.bgSecondary,
+    borderRadius: layout.radius.full,
+    padding: `${layout.spacing[1]} ${layout.gap.md}`,
+    marginBottom: layout.gap.sm,
+    transitionProperty: "background-color, color",
+    transitionDuration: layout.duration.normal,
+  },
+  interestCounterComplete: {
+    color: semanticColors.bgPrimary,
+    backgroundImage: gradients.primary,
   },
   interestText: {
     fontSize: typography.fontSize.size3,
@@ -395,12 +434,15 @@ export const useTripPlanningFormStyles = makeStyles({
   },
   chipActive: {
     ...shorthands.borderColor(semanticColors.interactive),
-    backgroundColor: colors.coralTint,
-    color: semanticColors.interactive,
+    backgroundImage: gradients.primary,
+    color: semanticColors.bgPrimary,
     fontWeight: typography.fontWeight.bold,
+    boxShadow: semanticColors.shadowInteractive,
+    "& .MuiChip-label": { padding: `${layout.gap.sm} ${layout.gap.md}` },
     ":hover": {
       ...shorthands.borderColor(semanticColors.interactive),
-      backgroundColor: semanticColors.bgInteractiveSubtle,
+      backgroundImage: gradients.primary,
+      opacity: 0.92,
     },
   },
   completedChoice: {
@@ -413,26 +455,6 @@ export const useTripPlanningFormStyles = makeStyles({
     },
   },
   otherField: { marginTop: layout.gap.md },
-  selectionNotice: {
-    marginTop: layout.gap.lg,
-    padding: `${layout.gap.sm} ${layout.gap.md}`,
-    borderRadius: layout.radius.md,
-    backgroundColor: semanticColors.bgInteractiveSubtle,
-    ...shorthands.border(
-      layout.borderWidth.hairline,
-      "solid",
-      semanticColors.borderAccentLight,
-    ),
-    color: semanticColors.interactive,
-    display: "flex",
-    alignItems: "center",
-    columnGap: layout.gap.sm,
-  },
-  selectionNoticeText: {
-    margin: 0,
-    ...typographyPresets.label,
-    color: semanticColors.interactive,
-  },
   summary: {
     marginTop: layout.gap.lg,
     backgroundImage: gradients.summary,
