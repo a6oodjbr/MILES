@@ -31,7 +31,7 @@ export const buildTripDays = (trips: Trip[]): Map<string, TripDayMark> => {
       mark.start = mark.start || day.isSame(start, "day");
       mark.end = mark.end || day.isSame(end, "day");
       const destinations = formatTripDestinations(trip.destinations);
-      if (!mark.destinations.includes(destinations)) {
+      if (destinations && !mark.destinations.includes(destinations)) {
         mark.destinations.push(destinations);
       }
       tripDays.set(key, mark);

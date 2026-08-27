@@ -12,7 +12,7 @@ export type TripDestination = {
   days: number;
 };
 
-export const formatTripDestinations = (destinations: TripDestination[]) =>
+export const formatTripDestinations = (destinations: TripDestination[] = []) =>
   destinations
     .map(({ city, country }) => (city ? `${city}, ${country}` : country))
     .join(" • ");
