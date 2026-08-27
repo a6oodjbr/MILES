@@ -564,7 +564,6 @@ const TripPlanningForm = () => {
         travelers_count: adults + children,
       };
 
-      console.log("Submitting trip payload:", tripPayload);
       const { data: trip } = await createTrip(tripPayload);
 
       const [{ data: itinerary }] = await Promise.all([
