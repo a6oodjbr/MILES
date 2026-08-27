@@ -4,7 +4,6 @@ import { mergeClasses } from "@griffel/react";
 import {
   Box,
   Button,
-  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -18,6 +17,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import { LoadingScreen } from "../../../components/loadingScreen/loadingScreen";
 import { DaySelector } from "../components/daySelector";
 import { EmptyItineraryMessage } from "../components/emptyItineraryMessage";
 import { ItineraryHeader } from "../components/itineraryHeader";
@@ -29,6 +29,7 @@ import { formatDateRange } from "../utils/dateUtils";
 const Itinerary = () => {
   const classes = useItineraryStyles();
   const {
+    addActivityToDay,
     clearRegenerateError,
     deleteActivity,
     errorMessage,
@@ -73,6 +74,20 @@ const Itinerary = () => {
     return activityId ? isRegenerating("activity", activityId) : false;
   };
 
+  // Day/trip regenerate and add-activity all replace the whole visible
+  // timeline, so they share one dimmed overlay instead of each activity
+  // card showing its own spinner.
+  const dayTargetId = activeDay?.id ?? String(activeDay?.day ?? "");
+  const dayRegenerating = isRegenerating("day", dayTargetId);
+  const tripRegenerating = isRegenerating("trip", trip?.id ?? "");
+  const addingActivity = isRegenerating("add", dayTargetId);
+  const timelineBusy = dayRegenerating || tripRegenerating || addingActivity;
+  const timelineBusyLabel = tripRegenerating
+    ? "Regenerating your whole trip..."
+    : dayRegenerating
+      ? "Regenerating this day..."
+      : "Adding your activity...";
+
   const acceptRegeneratePlan = () => {
     setConfirmRegeneratePlan(false);
     regenerateWholeTrip();
@@ -80,10 +95,10 @@ const Itinerary = () => {
 
   if (loading) {
     return (
-      <Box className={classes.loading}>
-        <CircularProgress />
-        <Box className={classes.loadingMessage}>Loading itinerary...</Box>
-      </Box>
+      <LoadingScreen
+        ariaLabel="Itinerary loading progress"
+        title="Loading itinerary..."
+      />
     );
   }
 
@@ -120,6 +135,8 @@ const Itinerary = () => {
                       <IconButton
                         aria-label="Add activity"
                         className={classes.dayActionButton}
+                        disabled={!canRegenerate || regenerateBusy}
+                        onClick={() => addActivityToDay(selectedDay)}
                       >
                         <AddIcon />
                       </IconButton>
@@ -166,6 +183,8 @@ const Itinerary = () => {
               <>
                 {activeDay ? (
                   <Timeline
+                    busy={timelineBusy}
+                    busyLabel={timelineBusyLabel}
                     day={activeDay}
                     dayIndex={selectedDay}
                     destination={trip.destination}

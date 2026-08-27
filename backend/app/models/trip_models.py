@@ -29,11 +29,6 @@ class Trip(Base):
         index=True,
     )
 
-    destination: Mapped[str] = mapped_column(
-        String(150),
-        nullable=False,
-    )
-
     destinations: Mapped[list[dict]] = mapped_column(
         JSON,
         nullable=False,

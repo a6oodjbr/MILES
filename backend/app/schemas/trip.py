@@ -76,7 +76,6 @@ class TripRequestUpdate(BaseModel):
 
 
 class TripCreate(BaseModel):
-    destination: str = Field(..., min_length=1, max_length=150)
     destinations: list[TripDestination] = Field(..., min_length=1)
     start_date: date
     end_date: date
@@ -85,7 +84,7 @@ class TripCreate(BaseModel):
     travelers_count: int = Field(default=1, ge=1)
     trip_status: str = Field(default="planning", min_length=1, max_length=30)
 
-    @field_validator("destination", "currency", "trip_status")
+    @field_validator("currency", "trip_status")
     @classmethod
     def not_blank(cls, value: str) -> str:
         if not value.strip():
@@ -105,7 +104,6 @@ class TripCreate(BaseModel):
 class TripUpdate(BaseModel):
     """Every field optional — only the ones actually sent get applied."""
 
-    destination: str | None = Field(default=None, min_length=1, max_length=150)
     destinations: list[TripDestination] | None = Field(default=None, min_length=1)
     start_date: date | None = None
     end_date: date | None = None
@@ -114,7 +112,7 @@ class TripUpdate(BaseModel):
     travelers_count: int | None = Field(default=None, ge=1)
     trip_status: str | None = Field(default=None, min_length=1, max_length=30)
 
-    @field_validator("destination", "currency", "trip_status")
+    @field_validator("currency", "trip_status")
     @classmethod
     def not_blank(cls, value: str | None) -> str | None:
         if value is not None and not value.strip():
@@ -125,7 +123,6 @@ class TripUpdate(BaseModel):
 class TripResponse(BaseModel):
     id: int
     user_id: int
-    destination: str
     destinations: list[TripDestination]
     start_date: date
     end_date: date

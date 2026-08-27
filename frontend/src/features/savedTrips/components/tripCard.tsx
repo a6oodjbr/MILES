@@ -30,6 +30,9 @@ const getTripDays = (startDate: string, endDate: string) => {
 
 const TripCard = ({ trip }: TripCardProps) => {
   const styles = useSavedTripsStyles();
+  const destinationLabel = trip.destinations
+    .map(({ country, city }) => (city ? `${country}, ${city}` : country))
+    .join(" • ");
 
   const dateRange = formatDateRange(trip.start_date, trip.end_date);
   const daysCount = getTripDays(trip.start_date, trip.end_date);
@@ -51,7 +54,7 @@ const TripCard = ({ trip }: TripCardProps) => {
 
       <div className={styles.cardBody}>
         <h3 className={styles.destination}>
-          {trip.destination ?? "Untitled trip"}
+          {destinationLabel || "Untitled trip"}
         </h3>
 
         {dateRange && <p className={styles.dateRange}>{dateRange}</p>}

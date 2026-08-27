@@ -5,7 +5,6 @@ export type TripDestination = {
 };
 
 export type TripCreatePayload = {
-  destination: string;
   destinations: TripDestination[];
   start_date: string;
   end_date: string;
@@ -16,7 +15,6 @@ export type TripCreatePayload = {
 export type Trip = {
   id: number;
   user_id: number;
-  destination: string;
   destinations: TripDestination[];
   start_date: string;
   end_date: string;

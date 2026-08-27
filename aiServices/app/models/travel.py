@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field
 
 
 class TravelPreferences(BaseModel):
-    destination: str
     destinations: list[dict[str, str | int]] = Field(default_factory=list)
     start_date: str
     end_date: str
