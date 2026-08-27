@@ -89,11 +89,19 @@ def build_itinerary_prompt(
         if preferences.interests
         else "general sightseeing"
     )
+    destinations_str = (
+        "; ".join(
+            f"{item['country']}{', ' + item['city'] if item.get('city') else ''} "
+            f"({item['days']} days)"
+            for item in preferences.destinations
+        )
+        or preferences.destination
+    )
 
     return f"""You are a professional travel itinerary planner. Create a detailed, realistic, and engaging day-by-day itinerary.
 
 TRIP DETAILS:
-- Destination: {preferences.destination}
+  - Destinations: {destinations_str}
 - Start Date: {preferences.start_date}
 - End Date: {preferences.end_date}
 - Number of Days: {num_days}

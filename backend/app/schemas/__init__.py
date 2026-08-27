@@ -22,6 +22,7 @@ from .itinerary import (
 from .trip import (
     MAX_TRIP_DAYS,
     TripCreate,
+    TripDestination,
     TripRequest,
     TripRequestResponse,
     TripRequestUpdate,
@@ -52,6 +53,7 @@ __all__ = [
     "MessageCreate",
     "MessageResponse",
     "TripCreate",
+    "TripDestination",
     "TripRequest",
     "TripRequestResponse",
     "TripRequestUpdate",

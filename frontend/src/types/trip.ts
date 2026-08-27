@@ -1,5 +1,12 @@
+export type TripDestination = {
+  country: string;
+  city: string;
+  days: number;
+};
+
 export type TripCreatePayload = {
   destination: string;
+  destinations: TripDestination[];
   start_date: string;
   end_date: string;
   budget: number;
@@ -10,6 +17,7 @@ export type Trip = {
   id: number;
   user_id: number;
   destination: string;
+  destinations: TripDestination[];
   start_date: string;
   end_date: string;
   budget: number | null;

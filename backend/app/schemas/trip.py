@@ -6,6 +6,12 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 MAX_TRIP_DAYS = 31
 
 
+class TripDestination(BaseModel):
+    country: str = Field(..., min_length=1, max_length=100)
+    city: str = Field(default="", max_length=100)
+    days: int = Field(..., ge=1)
+
+
 class TripRequest(BaseModel):
     origin: str = Field(..., min_length=1, max_length=100)
     destination: str = Field(..., min_length=1, max_length=100)
@@ -71,6 +77,7 @@ class TripRequestUpdate(BaseModel):
 
 class TripCreate(BaseModel):
     destination: str = Field(..., min_length=1, max_length=150)
+    destinations: list[TripDestination] = Field(..., min_length=1)
     start_date: date
     end_date: date
     budget: Decimal | None = Field(default=None, gt=0)
@@ -99,6 +106,7 @@ class TripUpdate(BaseModel):
     """Every field optional — only the ones actually sent get applied."""
 
     destination: str | None = Field(default=None, min_length=1, max_length=150)
+    destinations: list[TripDestination] | None = Field(default=None, min_length=1)
     start_date: date | None = None
     end_date: date | None = None
     budget: Decimal | None = Field(default=None, gt=0)
@@ -118,6 +126,7 @@ class TripResponse(BaseModel):
     id: int
     user_id: int
     destination: str
+    destinations: list[TripDestination]
     start_date: date
     end_date: date
     budget: Decimal | None = None
