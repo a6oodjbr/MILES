@@ -23,7 +23,8 @@ def upgrade() -> None:
     op.execute(
         sa.text(
             "UPDATE trips SET destinations = "
-            "json_build_array(json_build_object('country', destination, 'city', '', 'days', 1))"
+            "json_build_array(json_build_object('country', destination, "
+            "'city', '', 'days', 1))"
         )
     )
     op.alter_column("trips", "destinations", nullable=False)
