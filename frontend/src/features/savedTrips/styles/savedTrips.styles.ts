@@ -19,6 +19,8 @@ export const useSavedTripsStyles = makeStyles({
   },
 
   content: {
+    width: "100%",
+    boxSizing: "border-box",
     maxWidth: "1240px",
     marginLeft: "auto",
     marginRight: "auto",
@@ -38,6 +40,7 @@ export const useSavedTripsStyles = makeStyles({
     alignItems: "flex-start",
     gap: layout.gap.md,
     flexWrap: "wrap",
+    minWidth: 0,
   },
 
   title: {
@@ -70,7 +73,7 @@ export const useSavedTripsStyles = makeStyles({
 
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))",
     gap: layout.gap.md,
   },
 
@@ -120,6 +123,43 @@ export const useSavedTripsStyles = makeStyles({
     opacity: 0.9,
   },
 
+  deleteButton: {
+    position: "absolute",
+    top: layout.spacing[3],
+    left: layout.spacing[3],
+    width: "34px",
+    height: "34px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    ...shorthands.padding("0"),
+    ...shorthands.border("0"),
+    ...shorthands.borderRadius(layout.radius.full),
+    backgroundColor: "#ef233c",
+    color: colors.white,
+    cursor: "pointer",
+    boxShadow: "0 8px 18px rgba(129, 23, 35, 0.24)",
+    transitionProperty: "background-color, transform, box-shadow",
+    transitionDuration: layout.duration.normal,
+
+    ":hover": {
+      backgroundColor: "#d90429",
+      transform: "translateY(-1px)",
+      boxShadow: "0 10px 22px rgba(129, 23, 35, 0.28)",
+    },
+
+    ":focus-visible": {
+      outlineColor: colors.white,
+      outlineStyle: "solid",
+      outlineWidth: layout.borderWidth.thick,
+      outlineOffset: "2px",
+    },
+  },
+
+  deleteIcon: {
+    fontSize: "20px",
+  },
+
   statusPill: {
     position: "absolute",
     top: layout.spacing[3],
@@ -159,6 +199,7 @@ export const useSavedTripsStyles = makeStyles({
     margin: 0,
     ...typographyPresets.h3,
     color: semanticColors.textPrimary,
+    overflowWrap: "anywhere",
   },
 
   dateRange: {
@@ -200,6 +241,8 @@ export const useSavedTripsStyles = makeStyles({
     fontWeight: typography.fontWeight.semibold,
     opacity: 0.55,
     cursor: "not-allowed",
+    gap: layout.gap.sm,
+    minWidth: 0,
   },
 
   cardFooterArrow: {
@@ -219,6 +262,9 @@ export const useSavedTripsStyles = makeStyles({
       semanticColors.borderDefault,
     ),
     ...shorthands.borderRadius(layout.radius.xl),
+    "@media (max-width: 520px)": {
+      ...shorthands.padding(layout.spacing[10], layout.padding.md),
+    },
   },
 
   emptyIcon: {
