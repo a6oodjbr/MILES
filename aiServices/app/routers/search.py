@@ -34,3 +34,11 @@ def search(request: SearchRequest) -> SearchResponse:
     return SearchResponse(
         results=[SearchResult(document=dict(result)) for result in results]
     )
+    
+@router.get("/scoring-profiles", response_model=list)
+def get_scoring_profiles():
+    return search_service.get_scoring_profiles()
+
+@router.get("/default-scoring-profile")
+def get_default_scoring_profile():
+    return search_service.get_default_scoring_profile()
