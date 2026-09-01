@@ -26,7 +26,22 @@ def get_schema() -> SearchSchemaResponse:
 
 @router.post("", response_model=SearchResponse)
 def search(request: SearchRequest) -> SearchResponse:
+    query_vector = search_service.get_query_vector(request.query)
     results = search_service.search(
+        query=request.query,
+        top=request.top,
+        threshold=request.threshold,
+    )
+
+    return SearchResponse(
+        results=[SearchResult(document=dict(result)) for result in results],
+        query_vector=query_vector,
+    )
+
+
+@router.post("/semantic", response_model=SearchResponse)
+def semantic_search(request: SearchRequest) -> SearchResponse:
+    results = search_service.semantic_search(
         query=request.query,
         top=request.top,
     )
@@ -34,10 +49,42 @@ def search(request: SearchRequest) -> SearchResponse:
     return SearchResponse(
         results=[SearchResult(document=dict(result)) for result in results]
     )
-    
+
+
+@router.post("/vector", response_model=SearchResponse)
+def vector_search(request: SearchRequest) -> SearchResponse:
+    query_vector = search_service.get_query_vector(request.query)
+    results = search_service.search(
+        query=request.query,
+        top=request.top,
+        threshold=request.threshold,
+    )
+
+    return SearchResponse(
+        results=[SearchResult(document=dict(result)) for result in results],
+        query_vector=query_vector,
+    )
+
+
+@router.post("/hybrid", response_model=SearchResponse)
+def hybrid_search(request: SearchRequest) -> SearchResponse:
+    query_vector = search_service.get_query_vector(request.query)
+    results = search_service.search(
+        query=request.query,
+        top=request.top,
+        threshold=request.threshold,
+    )
+
+    return SearchResponse(
+        results=[SearchResult(document=dict(result)) for result in results],
+        query_vector=query_vector,
+    )
+
+
 @router.get("/scoring-profiles", response_model=list)
 def get_scoring_profiles():
     return search_service.get_scoring_profiles()
+
 
 @router.get("/default-scoring-profile")
 def get_default_scoring_profile():
