@@ -28,12 +28,8 @@ def get_client():
 
 
 def get_embedding_client():
-    endpoint = (
-        settings.AZURE_OPENAI_EMBEDDING_ENDPOINT or ""
-    )
-    api_key = (
-        settings.AZURE_OPENAI_EMBEDDING_API_KEY or ""
-    )
+    endpoint = settings.AZURE_OPENAI_EMBEDDING_ENDPOINT or ""
+    api_key = settings.AZURE_OPENAI_EMBEDDING_API_KEY or ""
 
     if not endpoint or not api_key:
         raise ValueError("Azure OpenAI embedding configuration is missing.")

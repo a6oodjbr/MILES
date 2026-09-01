@@ -15,8 +15,45 @@ from app.prompts import (
     build_regenerate_day_prompt,
     build_regenerate_itinerary_prompt,
 )
+from app.services.search import search_service
 
 client = get_client()
+
+
+def _build_itinerary_search_query(preferences: TravelPreferences) -> str:
+    """Build an Azure Search query from the user's travel preferences."""
+    destinations = ", ".join(
+        ", ".join(
+            value
+            for value in (destination.get("city"), destination.get("country"))
+            if value
+        )
+        for destination in preferences.destinations
+    )
+    interests = ", ".join(preferences.interests) or "general sightseeing"
+    return (
+        f"Travel recommendations in {destinations}; interests: {interests}; "
+        f"budget: {preferences.budget} ({preferences.budget_level or 'any level'})"
+    )
+
+
+def _travel_data_from_search(results: list[dict]) -> list[TravelDataItem]:
+    """Convert valid Azure Search documents into itinerary travel data."""
+    travel_data = []
+    for result in results:
+        if not result.get("name") or not result.get("description"):
+            continue
+        travel_data.append(
+            TravelDataItem(
+                name=result["name"],
+                type=result.get("type", "activity"),
+                description=result["description"],
+                location=result.get("location"),
+                tags=result.get("tags"),
+                budget_level=result.get("budget_level"),
+            )
+        )
+    return travel_data
 
 
 def _call_model(prompt: str, max_output_tokens: int = 8000) -> str:
@@ -38,7 +75,11 @@ def _call_model(prompt: str, max_output_tokens: int = 8000) -> str:
 def generate_itinerary(
     preferences: TravelPreferences, travel_data: list[TravelDataItem]
 ) -> Itinerary:
-    prompt = build_itinerary_prompt(preferences, travel_data)
+    search_query = _build_itinerary_search_query(preferences)
+    search_results = search_service.search(search_query, top=20)
+    grounded_travel_data = _travel_data_from_search(search_results) or travel_data
+
+    prompt = build_itinerary_prompt(preferences, grounded_travel_data)
     output_text = _call_model(prompt)
 
     try:
