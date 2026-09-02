@@ -62,7 +62,7 @@ def _retrieve_travel_data(
 ) -> list[TravelDataItem]:
     """Search for recommendations matching the user's itinerary preferences."""
     search_results = search_service.search(
-        _build_search_query(preferences), top=SEARCH_RESULTS_LIMIT, threshold=0.5
+        _build_search_query(preferences), top=SEARCH_RESULTS_LIMIT, threshold=0.025
     )
     retrieved_data = [
         TravelDataItem.model_validate(result) for result in search_results
