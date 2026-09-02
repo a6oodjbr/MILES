@@ -4,15 +4,18 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import FlightTakeoffRoundedIcon from "@mui/icons-material/FlightTakeoffRounded";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-
+import { Link } from "react-router-dom";
 import { formatDateRange } from "../../Itinerary/utils/dateUtils";
 import { formatTripDestinations } from "../../../types/trip";
 import { useSavedTripsStyles } from "../styles/savedTrips.styles";
 import type { SavedTrip } from "../types/savedTrips.types";
 import { tripStatusLabels } from "../utils/tripStatus";
+import { buildItineraryDetailPath } from "../../../routes/routesPaths";
 
 type TripCardProps = {
   trip: SavedTrip;
+  isDeleting?: boolean;
+  onDelete: (tripId: number) => void;
 };
 
 const statusClassMap = {
@@ -30,7 +33,7 @@ const getTripDays = (startDate: string, endDate: string) => {
   return Math.max(1, Math.ceil(difference / (1000 * 60 * 60 * 24)));
 };
 
-const TripCard = ({ trip }: TripCardProps) => {
+const TripCard = ({ trip, isDeleting = false, onDelete }: TripCardProps) => {
   const styles = useSavedTripsStyles();
 
   const dateRange = formatDateRange(trip.start_date, trip.end_date);
@@ -42,7 +45,9 @@ const TripCard = ({ trip }: TripCardProps) => {
         <button
           type="button"
           className={styles.deleteButton}
-          aria-label="Delete trip"
+          aria-label={`Delete ${formatTripDestinations(trip.destinations) || "trip"}`}
+          disabled={isDeleting}
+          onClick={() => onDelete(trip.id)}
         >
           <DeleteOutlineRoundedIcon className={styles.deleteIcon} />
         </button>
@@ -79,14 +84,16 @@ const TripCard = ({ trip }: TripCardProps) => {
           </span>
         </div>
 
-        <div className={styles.cardFooter}>
+        <Link
+          to={buildItineraryDetailPath(trip.id)}
+          className={styles.cardFooter}
+        >
           <span>View full itinerary</span>
-
           <ArrowForwardRoundedIcon
             fontSize="small"
             className={styles.cardFooterArrow}
           />
-        </div>
+        </Link>
       </div>
     </div>
   );

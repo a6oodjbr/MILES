@@ -12,7 +12,7 @@ class SearchService:
         """
         self.search_client = get_search_client()
 
-    def search(self, query: str, top: int = 5, threshold: float | None = None):
+    def search(self, query: str, top: int = 5, threshold: float = 0.01):
         """Summary: run vector search, falling back to keyword search.
 
         Inputs: `query` is the search text; `top` limits results; `threshold`
@@ -50,7 +50,15 @@ class SearchService:
                 if float(result.get("@search.score", result.get("score", 0)))
                 >= threshold
             ]
-        return results_list
+
+        return [
+            {
+                field: value
+                for field, value in result.items()
+                if field not in {"id", "destination_id"}
+            }
+            for result in results_list
+        ]
 
     def _embed_query(self, query: str):
         """Summary: create an Azure OpenAI embedding for a query.
