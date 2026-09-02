@@ -23,20 +23,18 @@ const categories = [
 
 const budgets = [
   "Any Budget",
-  "Low Budget",
-  "Mid-range",
-  "Upscale",
-  "Luxury",
+  "Low",
+  "Mid",
+  "High",
 ] as const satisfies readonly BudgetFilterLabel[];
 
 const budgetMap: Record<
   Exclude<BudgetFilterLabel, "Any Budget">,
   PriceLevel
 > = {
-  "Low Budget": "$",
-  "Mid-range": "$$",
-  Upscale: "$$$",
-  Luxury: "$$$$",
+  Low: "$",
+  Mid: "$$",
+  High: "$$$",
 };
 
 const Recommendations = () => {
@@ -49,7 +47,6 @@ const Recommendations = () => {
   const { places, isLoading, errorMessage } = useRecommendations(
     location.state,
     activeCategory,
-    activeBudget,
   );
 
   const filteredPlaces = useMemo(
