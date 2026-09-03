@@ -629,7 +629,7 @@ export const useItineraryStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     gap: layout.gap.sm,
-    backgroundColor: `color-mix(in srgb, ${semanticColors.bgPrimary} 85%, transparent)`,
+    backgroundColor: `color-mix(in srgb, ${semanticColors.bgPrimary} 18%, transparent)`,
     borderRadius: layout.radius.lg,
     zIndex: 3,
   },
@@ -806,6 +806,9 @@ export const useItineraryStyles = makeStyles({
     filter: "blur(1px)",
     userSelect: "none",
   },
+  activitySkeleton: {
+    backgroundColor: `color-mix(in srgb, ${semanticColors.textPrimary} 18%, transparent)`,
+  },
   regeneratingOverlay: {
     position: "absolute",
     inset: 0,
@@ -851,6 +854,10 @@ export const useItineraryStyles = makeStyles({
   },
   activityContent: {
     minWidth: 0,
+    flex: 1,
+  },
+  activitySkeletonStack: {
+    width: "100%",
   },
   activityMeta: {
     display: "flex",

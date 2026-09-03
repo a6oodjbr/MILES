@@ -105,6 +105,7 @@ const Itinerary = () => {
     activityIndex: number;
   } | null>(null);
   const [newActivity, setNewActivity] = useState(emptyNewActivity);
+  const [pendingActivityTime, setPendingActivityTime] = useState<string>();
   const [addActivityError, setAddActivityError] = useState("");
   const trip = itineraries[0];
   const days = useMemo(() => trip?.days ?? [], [trip?.days]);
@@ -200,6 +201,14 @@ const Itinerary = () => {
       (interval) => startMinutes < interval.end && endMinutes > interval.start,
     );
   });
+  const selectableStartTimes =
+    editingActivity && !freeStartTimes.includes(newActivity.startTime)
+      ? [newActivity.startTime, ...freeStartTimes]
+      : freeStartTimes;
+  const selectableEndTimes =
+    editingActivity && !freeEndTimes.includes(newActivity.endTime)
+      ? [newActivity.endTime, ...freeEndTimes]
+      : freeEndTimes;
 
   const openAddDialog = () => {
     const firstStart = freeStartTimes[0] ?? "13:00";
@@ -273,14 +282,9 @@ const Itinerary = () => {
       return;
     }
 
-    const isBusy = (activeDay?.activities ?? []).some((activity) => {
-      if (typeof activity === "string") return false;
-      const activityStart = timeToMinutes(activity.time);
-      const activityEnd = timeToMinutes(activity.endTime);
-      if (activityStart === undefined || activityEnd === undefined)
-        return false;
-      return startMinutes < activityEnd && endMinutes > activityStart;
-    });
+    const isBusy = busyIntervals.some(
+      (interval) => startMinutes < interval.end && endMinutes > interval.start,
+    );
 
     if (isBusy) {
       setAddActivityError(
@@ -308,6 +312,7 @@ const Itinerary = () => {
         endTime: activityPayload.end_time,
       });
     } else {
+      setPendingActivityTime(formatTimeLabel(newActivity.startTime));
       addActivityToDay(selectedDay, { name: title, ...activityPayload });
     }
     setAddDialogOpen(false);
@@ -413,12 +418,16 @@ const Itinerary = () => {
                 {activeDay ? (
                   activeDay.activities.length > 0 ? (
                     <Timeline
-                      busy={timelineBusy}
+                      busy={timelineBusy && !addingActivity}
                       busyLabel={timelineBusyLabel}
                       day={activeDay}
                       dayIndex={selectedDay}
                       destination={trip.destination}
                       isActivityRegenerating={isActivityRegenerating}
+                      showLoadingSkeletons={!addingActivity}
+                      pendingActivityTime={
+                        addingActivity ? pendingActivityTime : undefined
+                      }
                       onDeleteActivity={deleteActivity}
                       onEditActivity={openEditDialog}
                       onRegenerateActivity={
@@ -560,7 +569,7 @@ const Itinerary = () => {
                       : ""
                   }
                 >
-                  {freeStartTimes.map((time) => (
+                  {selectableStartTimes.map((time) => (
                     <MenuItem key={time} value={time}>
                       {formatTimeLabel(time)}
                     </MenuItem>
@@ -586,7 +595,7 @@ const Itinerary = () => {
                       : ""
                   }
                 >
-                  {freeEndTimes.map((time) => (
+                  {selectableEndTimes.map((time) => (
                     <MenuItem key={time} value={time}>
                       {formatTimeLabel(time)}
                     </MenuItem>
