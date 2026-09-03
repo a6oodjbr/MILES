@@ -830,7 +830,10 @@ export const useItineraryStyles = makeStyles({
       opacity: 0.7,
     },
     "& .MuiInputLabel-root": {
+      backgroundColor: semanticColors.bgPrimary,
       fontWeight: 700,
+      paddingLeft: "4px",
+      paddingRight: "4px",
     },
     "& .MuiSelect-select": {
       minHeight: "1.4375em",

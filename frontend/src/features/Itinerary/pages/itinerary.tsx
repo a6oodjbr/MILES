@@ -495,7 +495,7 @@ const Itinerary = () => {
               required
               sx={getFieldSx(false)}
             >
-              <InputLabel id="activity-type-label" required>
+              <InputLabel id="activity-type-label" required shrink>
                 Activity type
               </InputLabel>
               <Select
@@ -538,7 +538,7 @@ const Itinerary = () => {
                 required
                 sx={getFieldSx(false)}
               >
-                <InputLabel id="activity-start-time-label" required>
+                <InputLabel id="activity-start-time-label" required shrink>
                   Start time
                 </InputLabel>
                 <Select
@@ -573,7 +573,7 @@ const Itinerary = () => {
                 required
                 sx={getFieldSx(false)}
               >
-                <InputLabel id="activity-end-time-label" required>
+                <InputLabel id="activity-end-time-label" required shrink>
                   End time
                 </InputLabel>
                 <Select
