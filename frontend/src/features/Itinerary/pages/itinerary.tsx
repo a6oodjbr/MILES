@@ -12,7 +12,6 @@ import {
   FormControl,
   IconButton,
   InputLabel,
-  MenuItem,
   Select,
   Snackbar,
   Stack,
@@ -150,7 +149,6 @@ const Itinerary = () => {
       : "Adding your activity...";
   const closeActivityDialog = () => {
     setAddDialogOpen(false);
-    setEditingActivity(null);
     setAddActivityError("");
   };
 
@@ -491,13 +489,19 @@ const Itinerary = () => {
           }}
         >
           <Stack spacing={2} sx={{ pt: 1 }}>
-            <FormControl fullWidth required sx={getFieldSx(false)}>
+            <FormControl
+              className={classes.activityTimeSelect}
+              fullWidth
+              required
+              sx={getFieldSx(false)}
+            >
               <InputLabel id="activity-type-label" required>
                 Activity type
               </InputLabel>
               <Select
                 label="Activity type"
                 labelId="activity-type-label"
+                native
                 onChange={(event) =>
                   setNewActivity((current) => ({
                     ...current,
@@ -507,9 +511,9 @@ const Itinerary = () => {
                 value={newActivity.category}
               >
                 {interestOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
+                  <option key={option} value={option}>
                     {option}
-                  </MenuItem>
+                  </option>
                 ))}
               </Select>
             </FormControl>
@@ -528,14 +532,19 @@ const Itinerary = () => {
               value={newActivity.title}
             />
             <Stack direction={{ sm: "row", xs: "column" }} spacing={2}>
-              <FormControl fullWidth required sx={getFieldSx(false)}>
+              <FormControl
+                className={classes.activityTimeSelect}
+                fullWidth
+                required
+                sx={getFieldSx(false)}
+              >
                 <InputLabel id="activity-start-time-label" required>
                   Start time
                 </InputLabel>
                 <Select
                   label="Start time"
                   labelId="activity-start-time-label"
-                  MenuProps={{ disablePortal: true }}
+                  native
                   onChange={(event) => {
                     const startTime = event.target.value;
                     setNewActivity((current) => ({
@@ -552,13 +561,18 @@ const Itinerary = () => {
                   }
                 >
                   {selectableStartTimes.map((time) => (
-                    <MenuItem key={time} value={time}>
+                    <option key={time} value={time}>
                       {formatTimeLabel(time)}
-                    </MenuItem>
+                    </option>
                   ))}
                 </Select>
               </FormControl>
-              <FormControl fullWidth required sx={getFieldSx(false)}>
+              <FormControl
+                className={classes.activityTimeSelect}
+                fullWidth
+                required
+                sx={getFieldSx(false)}
+              >
                 <InputLabel id="activity-end-time-label" required>
                   End time
                 </InputLabel>
@@ -566,7 +580,7 @@ const Itinerary = () => {
                   disabled={!newActivity.startTime}
                   label="End time"
                   labelId="activity-end-time-label"
-                  MenuProps={{ disablePortal: true }}
+                  native
                   onChange={(event) =>
                     setNewActivity((current) => ({
                       ...current,
@@ -580,9 +594,9 @@ const Itinerary = () => {
                   }
                 >
                   {selectableEndTimes.map((time) => (
-                    <MenuItem key={time} value={time}>
+                    <option key={time} value={time}>
                       {formatTimeLabel(time)}
-                    </MenuItem>
+                    </option>
                   ))}
                 </Select>
               </FormControl>
