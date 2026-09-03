@@ -211,24 +211,10 @@ const Itinerary = () => {
       : freeEndTimes;
 
   const openAddDialog = () => {
-    const firstStart = freeStartTimes[0] ?? "13:00";
-    const firstStartMinutes = timeToMinutes(firstStart) ?? 0;
-    const firstEnd =
-      timeOptions.find((time) => {
-        const end = timeToMinutes(time);
-        return (
-          end !== undefined &&
-          end > firstStartMinutes &&
-          !busyIntervals.some(
-            (interval) =>
-              firstStartMinutes < interval.end && end > interval.start,
-          )
-        );
-      }) ?? "14:00";
     setNewActivity({
       ...emptyNewActivity,
-      startTime: firstStart,
-      endTime: firstEnd,
+      startTime: "",
+      endTime: "",
     });
     setEditingActivity(null);
     setAddActivityError("");
@@ -549,22 +535,18 @@ const Itinerary = () => {
                 <Select
                   label="Start time"
                   labelId="activity-start-time-label"
+                  MenuProps={{ disablePortal: true }}
                   onChange={(event) => {
                     const startTime = event.target.value;
-                    const start = timeToMinutes(startTime) ?? 0;
-                    const endTime =
-                      timeOptions.find(
-                        (time) => (timeToMinutes(time) ?? 0) > start,
-                      ) ?? "14:00";
                     setNewActivity((current) => ({
                       ...current,
                       startTime,
-                      endTime,
+                      endTime: "",
                     }));
                     setAddActivityError("");
                   }}
                   value={
-                    freeStartTimes.includes(newActivity.startTime)
+                    selectableStartTimes.includes(newActivity.startTime)
                       ? newActivity.startTime
                       : ""
                   }
@@ -581,8 +563,10 @@ const Itinerary = () => {
                   End time
                 </InputLabel>
                 <Select
+                  disabled={!newActivity.startTime}
                   label="End time"
                   labelId="activity-end-time-label"
+                  MenuProps={{ disablePortal: true }}
                   onChange={(event) =>
                     setNewActivity((current) => ({
                       ...current,
@@ -590,7 +574,7 @@ const Itinerary = () => {
                     }))
                   }
                   value={
-                    freeEndTimes.includes(newActivity.endTime)
+                    selectableEndTimes.includes(newActivity.endTime)
                       ? newActivity.endTime
                       : ""
                   }
