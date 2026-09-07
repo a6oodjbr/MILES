@@ -5,25 +5,17 @@ import { layout, typographyPresets } from "../theme/typography";
 
 export const useFooterStyles = makeStyles({
   footer: {
-    marginTop: layout.spacing[16],
-    padding: `0 clamp(${layout.padding.md}, 4vw, ${layout.padding.xl}) ${layout.padding.xl}`,
+    marginTop: layout.spacing[4],
+    padding: `0 clamp(${layout.padding.md}, 4vw, ${layout.padding.xl}) 0`,
     backgroundColor: warm.bgPage,
 
     "@media (max-width: 760px)": {
-      marginTop: layout.spacing[10],
-      padding: `0 ${layout.padding.sm} ${layout.padding.lg}`,
+      marginTop: layout.spacing[3],
+      padding: `0 ${layout.padding.sm} 0`,
     },
 
     "@media (max-width: 420px)": {
-      padding: `0 ${layout.padding.xs} ${layout.padding.md}`,
-    },
-  },
-
-  compactTop: {
-    marginTop: layout.spacing[4],
-
-    "@media (max-width: 760px)": {
-      marginTop: layout.spacing[3],
+      padding: `0 ${layout.padding.xs} 0`,
     },
   },
 
