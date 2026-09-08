@@ -18,12 +18,10 @@ The stack uses:
 1. Check whether ports `8000`, `8001`, and `5173` are being used.
 2. Identify the processes listening on those ports.
 3. If none of the ports are in use, report that the local stack is already stopped.
-4. If processes are found, show the ports and process IDs that will be stopped.
-5. Ask for confirmation before stopping them.
-6. After confirmation, stop only the processes associated with these ports.
-7. Verify that ports `8000`, `8001`, and `5173` are no longer listening.
-
-Do not automatically kill processes without confirmation.
+4. Stop only the processes associated with these ports.
+5. If a process does not stop normally, force-stop that process.
+6. Verify that ports `8000`, `8001`, and `5173` are no longer listening.
+7. If a process could not be stopped, report the port, process ID, and actual error.
 
 Do not stop unrelated processes.
 
@@ -42,13 +40,19 @@ To identify a process:
 Get-Process -Id <PID>
 ```
 
-After confirmation, stop the required processes:
+First try to stop the process normally:
+
+```powershell
+Stop-Process -Id <PID>
+```
+
+If the process is still running, force-stop it:
 
 ```powershell
 Stop-Process -Id <PID> -Force
 ```
 
-If multiple Project A processes are using the ports, stop each corresponding process.
+If multiple processes are using the Project A ports, stop each corresponding process.
 
 ## Completion
 
